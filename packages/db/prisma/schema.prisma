@@ -1,0 +1,195 @@
+// Prisma 7 schema — Telegram 监控 / 汇总 / 分析
+// 生成的 client 输出到 ../src/generated/prisma（Prisma 7 强制 output）
+// datasource 的 url 在 prisma.config.ts 里配置
+
+generator client {
+  provider            = "prisma-client"
+  output              = "../src/generated/prisma"
+  importFileExtension = ""
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+/// Telegram 用户账号（MTProto，敏感字段加密存储）
+model Account {
+  id            String        @id @default(cuid())
+  label         String        @default("default") // 给账号起个名字，便于多账号区分
+  phone         String?
+  apiId         Int
+  apiHashEnc    String // 加密后的 api_hash
+  sessionEnc    String? // 加密后的 GramJS StringSession（登录成功后写入）
+  tgUserId      String? // 登录后拿到的自身 user id
+  tgUsername    String?
+  status        AccountStatus @default(PENDING)
+  lastConnectedAt DateTime?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  sources  Source[]
+  messages Message[]
+
+  @@map("accounts")
+}
+
+enum AccountStatus {
+  PENDING // 已创建但未登录成功
+  ACTIVE // 已登录，collector 正常采集
+  DISCONNECTED // 掉线/会话失效
+}
+
+/// 监控源：要采集的频道 / 群 / 私聊（在 web 上配置）
+model Source {
+  id        String     @id @default(cuid())
+  accountId String
+  account   Account    @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  tgChatId  String // Telegram chat/channel id
+  title     String
+  username  String? // @channelname（如有）
+  type      SourceType
+  enabled   Boolean    @default(true)
+  addedAt   DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  rules    Rule[]    @relation("RuleSources")
+  messages Message[]
+
+  @@unique([accountId, tgChatId])
+  @@index([enabled])
+  @@map("sources")
+}
+
+enum SourceType {
+  CHANNEL
+  GROUP
+  USER
+}
+
+/// 过滤规则 / 主题：关键词、模糊匹配、正则、发送人过滤（在 web 上配置）
+model Rule {
+  id           String    @id @default(cuid())
+  name         String // 规则/主题名称，如 "空投"、"融资新闻"
+  enabled      Boolean   @default(true)
+  // 作用范围：ALL=对该账号下所有启用源生效；SELECTED=仅对下面勾选的 sources 生效
+  scopeMode    ScopeMode @default(ALL)
+  sources      Source[]  @relation("RuleSources")
+  // 匹配：partial=模糊关键字（默认），exact=精确，regex=正则；keyword 为空表示匹配作用域内全部消息
+  keyword      String?
+  matchType    MatchType @default(PARTIAL)
+  caseSensitive Boolean  @default(false)
+  // 发送人过滤（可选）：白名单/黑名单，存 tg user id 或 username 列表
+  senderFilter Json? // { mode: "whitelist"|"blacklist", ids: string[] }
+  mediaOnly    Boolean   @default(false) // 只采集带媒体的消息
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@index([enabled])
+  @@map("rules")
+}
+
+enum ScopeMode {
+  ALL // 全部启用源
+  SELECTED // 仅勾选的源
+}
+
+enum MatchType {
+  EXACT // 精确匹配整段/整词
+  PARTIAL // 模糊包含（默认）
+  REGEX // 正则
+}
+
+/// 入库的命中消息
+model Message {
+  id             String   @id @default(cuid())
+  accountId      String
+  account        Account  @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  sourceId       String
+  source         Source   @relation(fields: [sourceId], references: [id], onDelete: Cascade)
+  tgMessageId    String
+  tgChatId       String
+  senderId       String?
+  senderName     String?
+  senderUsername String?
+  text           String   @default("")
+  timestamp      DateTime // 消息在 Telegram 的时间
+  isForwarded    Boolean  @default(false)
+  fwdFrom        String?
+  matchedRuleIds Json     @default("[]") // 命中的规则 id 列表
+  needsSummary   Boolean  @default(true) // 是否待 AI 汇总
+  raw            Json? // 原始消息备份
+  createdAt      DateTime @default(now())
+
+  media Media[]
+
+  @@unique([accountId, tgChatId, tgMessageId])
+  @@index([sourceId, timestamp])
+  @@index([timestamp])
+  @@index([needsSummary])
+  @@map("messages")
+}
+
+/// 媒体文件（已上传到 R2）
+model Media {
+  id        String    @id @default(cuid())
+  messageId String
+  message   Message   @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  type      MediaType
+  r2Key     String
+  r2Url     String
+  fileName  String?
+  fileSize  Int?
+  mimeType  String?
+  width     Int?
+  height    Int?
+  createdAt DateTime  @default(now())
+
+  @@index([messageId])
+  @@map("media")
+}
+
+enum MediaType {
+  PHOTO
+  VIDEO
+  DOCUMENT
+  AUDIO
+  VOICE
+  OTHER
+}
+
+/// AI 生成的报告（每日 / 区间）
+model Report {
+  id              String   @id @default(cuid())
+  date            DateTime // 报告归属日期（当天 0 点）
+  windowStart     DateTime
+  windowEnd       DateTime
+  scope           String   @default("global") // "global" 或 source id
+  summaryMarkdown String
+  topics          Json     @default("[]") // [{ title, summary, messageIds, count }]
+  stats           Json     @default("{}") // { messageCount, sourceCount, topKeywords, ... }
+  model           String?
+  createdAt       DateTime @default(now())
+
+  @@unique([date, scope])
+  @@index([date])
+  @@map("reports")
+}
+
+/// 单例配置（R2 / AI），敏感字段加密
+model Setting {
+  id        String   @id @default("singleton")
+  // R2
+  r2AccountId   String?
+  r2AccessKeyEnc String?
+  r2SecretKeyEnc String?
+  r2Bucket      String?
+  r2Endpoint    String?
+  r2PublicUrl   String?
+  // AI（OpenAI 兼容）
+  aiBaseUrl  String?
+  aiApiKeyEnc String?
+  aiModel    String?  @default("gpt-4o-mini")
+  updatedAt  DateTime @updatedAt
+
+  @@map("settings")
+}

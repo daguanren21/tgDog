@@ -1,0 +1,31 @@
+{
+  "name": "tgdog",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Telegram 监控 / 汇总 / 分析 Web 应用",
+  "scripts": {
+    "build": "pnpm -r build",
+    "dev:web": "pnpm --filter @tgdog/web dev",
+    "dev:collector": "pnpm --filter @tgdog/collector dev",
+    "db:generate": "pnpm --filter @tgdog/db generate",
+    "db:migrate": "pnpm --filter @tgdog/db migrate",
+    "db:push": "pnpm --filter @tgdog/db push",
+    "db:studio": "pnpm --filter @tgdog/db studio",
+    "docker:infra": "docker compose up -d postgres minio minio-init",
+    "docker:up": "docker compose --profile apps up -d --build",
+    "docker:down": "docker compose --profile apps down",
+    "docker:logs": "docker compose logs -f"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@10.19.0",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@prisma/engines",
+      "prisma",
+      "esbuild",
+      "@prisma/client"
+    ]
+  }
+}

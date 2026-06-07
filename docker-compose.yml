@@ -1,0 +1,95 @@
+services:
+  # Postgres —— 本地数据库（替代 Supabase/Neon）
+  postgres:
+    image: postgres:17-alpine
+    container_name: tgdog-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: tgdog
+      POSTGRES_PASSWORD: tgdog
+      POSTGRES_DB: tgdog
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tgdog -d tgdog"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # MinIO —— 本地 S3 兼容存储（替代 Cloudflare R2 做开发）
+  minio:
+    image: minio/minio:latest
+    container_name: tgdog-minio
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    ports:
+      - "9000:9000"   # S3 API
+      - "9001:9001"   # 控制台 http://localhost:9001
+    volumes:
+      - miniodata:/data
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # 自动创建 bucket 并设为公开读（首次启动用）
+  minio-init:
+    image: minio/mc:latest
+    container_name: tgdog-minio-init
+    depends_on:
+      minio:
+        condition: service_healthy
+    entrypoint: >
+      /bin/sh -c "
+      mc alias set local http://minio:9000 minioadmin minioadmin &&
+      mc mb -p local/tgdog-media &&
+      mc anonymous set download local/tgdog-media &&
+      echo 'bucket tgdog-media 已就绪（公开读）';
+      "
+
+  # ===== 以下为可选：容器化运行 collector / web（profile: apps）=====
+  collector:
+    profiles: ["apps"]
+    build:
+      context: .
+      dockerfile: apps/collector/Dockerfile
+    container_name: tgdog-collector
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql://tgdog:tgdog@postgres:5432/tgdog
+      COLLECTOR_LOGIN_PORT: "8787"
+    ports:
+      - "8787:8787"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  web:
+    profiles: ["apps"]
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    container_name: tgdog-web
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql://tgdog:tgdog@postgres:5432/tgdog
+      COLLECTOR_LOGIN_URL: http://collector:8787
+    ports:
+      - "3000:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      collector:
+        condition: service_started
+
+volumes:
+  pgdata:
+  miniodata:
