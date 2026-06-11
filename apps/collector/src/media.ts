@@ -72,3 +72,18 @@ export async function downloadMediaBuffer(
     return null;
   }
 }
+
+/** 下载实体（用户/频道/群）头像为 Buffer；无头像或失败返回 null */
+export async function downloadAvatarBuffer(
+  client: TelegramClient,
+  entity: Api.User | Api.Channel | Api.Chat,
+): Promise<Buffer | null> {
+  try {
+    const result = await client.downloadProfilePhoto(entity);
+    if (result instanceof Buffer && result.length > 0) return result;
+    return null;
+  } catch {
+    // 无头像 / 隐私设置 / 临时错误：静默降级
+    return null;
+  }
+}

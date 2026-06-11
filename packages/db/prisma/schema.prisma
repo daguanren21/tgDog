@@ -22,6 +22,7 @@ model Account {
   sessionEnc    String? // 加密后的 GramJS StringSession（登录成功后写入）
   tgUserId      String? // 登录后拿到的自身 user id
   tgUsername    String?
+  avatarKey     String? // 头像在 R2 的对象 key（经 web /api/avatar 代理读取）
   status        AccountStatus @default(PENDING)
   lastConnectedAt DateTime?
   createdAt     DateTime      @default(now())
@@ -47,6 +48,7 @@ model Source {
   tgChatId  String // Telegram chat/channel id
   title     String
   username  String? // @channelname（如有）
+  avatarKey String? // 头像在 R2 的对象 key（经 web /api/avatar 代理读取）
   type      SourceType
   enabled   Boolean    @default(true)
   addedAt   DateTime   @default(now())

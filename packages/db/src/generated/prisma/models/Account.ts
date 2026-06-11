@@ -43,6 +43,7 @@ export type AccountMinAggregateOutputType = {
   sessionEnc: string | null
   tgUserId: string | null
   tgUsername: string | null
+  avatarKey: string | null
   status: $Enums.AccountStatus | null
   lastConnectedAt: Date | null
   createdAt: Date | null
@@ -58,6 +59,7 @@ export type AccountMaxAggregateOutputType = {
   sessionEnc: string | null
   tgUserId: string | null
   tgUsername: string | null
+  avatarKey: string | null
   status: $Enums.AccountStatus | null
   lastConnectedAt: Date | null
   createdAt: Date | null
@@ -73,6 +75,7 @@ export type AccountCountAggregateOutputType = {
   sessionEnc: number
   tgUserId: number
   tgUsername: number
+  avatarKey: number
   status: number
   lastConnectedAt: number
   createdAt: number
@@ -98,6 +101,7 @@ export type AccountMinAggregateInputType = {
   sessionEnc?: true
   tgUserId?: true
   tgUsername?: true
+  avatarKey?: true
   status?: true
   lastConnectedAt?: true
   createdAt?: true
@@ -113,6 +117,7 @@ export type AccountMaxAggregateInputType = {
   sessionEnc?: true
   tgUserId?: true
   tgUsername?: true
+  avatarKey?: true
   status?: true
   lastConnectedAt?: true
   createdAt?: true
@@ -128,6 +133,7 @@ export type AccountCountAggregateInputType = {
   sessionEnc?: true
   tgUserId?: true
   tgUsername?: true
+  avatarKey?: true
   status?: true
   lastConnectedAt?: true
   createdAt?: true
@@ -230,6 +236,7 @@ export type AccountGroupByOutputType = {
   sessionEnc: string | null
   tgUserId: string | null
   tgUsername: string | null
+  avatarKey: string | null
   status: $Enums.AccountStatus
   lastConnectedAt: Date | null
   createdAt: Date
@@ -268,6 +275,7 @@ export type AccountWhereInput = {
   sessionEnc?: Prisma.StringNullableFilter<"Account"> | string | null
   tgUserId?: Prisma.StringNullableFilter<"Account"> | string | null
   tgUsername?: Prisma.StringNullableFilter<"Account"> | string | null
+  avatarKey?: Prisma.StringNullableFilter<"Account"> | string | null
   status?: Prisma.EnumAccountStatusFilter<"Account"> | $Enums.AccountStatus
   lastConnectedAt?: Prisma.DateTimeNullableFilter<"Account"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Account"> | Date | string
@@ -285,6 +293,7 @@ export type AccountOrderByWithRelationInput = {
   sessionEnc?: Prisma.SortOrderInput | Prisma.SortOrder
   tgUserId?: Prisma.SortOrderInput | Prisma.SortOrder
   tgUsername?: Prisma.SortOrderInput | Prisma.SortOrder
+  avatarKey?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   lastConnectedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -305,6 +314,7 @@ export type AccountWhereUniqueInput = Prisma.AtLeast<{
   sessionEnc?: Prisma.StringNullableFilter<"Account"> | string | null
   tgUserId?: Prisma.StringNullableFilter<"Account"> | string | null
   tgUsername?: Prisma.StringNullableFilter<"Account"> | string | null
+  avatarKey?: Prisma.StringNullableFilter<"Account"> | string | null
   status?: Prisma.EnumAccountStatusFilter<"Account"> | $Enums.AccountStatus
   lastConnectedAt?: Prisma.DateTimeNullableFilter<"Account"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Account"> | Date | string
@@ -322,6 +332,7 @@ export type AccountOrderByWithAggregationInput = {
   sessionEnc?: Prisma.SortOrderInput | Prisma.SortOrder
   tgUserId?: Prisma.SortOrderInput | Prisma.SortOrder
   tgUsername?: Prisma.SortOrderInput | Prisma.SortOrder
+  avatarKey?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   lastConnectedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -345,6 +356,7 @@ export type AccountScalarWhereWithAggregatesInput = {
   sessionEnc?: Prisma.StringNullableWithAggregatesFilter<"Account"> | string | null
   tgUserId?: Prisma.StringNullableWithAggregatesFilter<"Account"> | string | null
   tgUsername?: Prisma.StringNullableWithAggregatesFilter<"Account"> | string | null
+  avatarKey?: Prisma.StringNullableWithAggregatesFilter<"Account"> | string | null
   status?: Prisma.EnumAccountStatusWithAggregatesFilter<"Account"> | $Enums.AccountStatus
   lastConnectedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Account"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Account"> | Date | string
@@ -360,6 +372,7 @@ export type AccountCreateInput = {
   sessionEnc?: string | null
   tgUserId?: string | null
   tgUsername?: string | null
+  avatarKey?: string | null
   status?: $Enums.AccountStatus
   lastConnectedAt?: Date | string | null
   createdAt?: Date | string
@@ -377,6 +390,7 @@ export type AccountUncheckedCreateInput = {
   sessionEnc?: string | null
   tgUserId?: string | null
   tgUsername?: string | null
+  avatarKey?: string | null
   status?: $Enums.AccountStatus
   lastConnectedAt?: Date | string | null
   createdAt?: Date | string
@@ -394,6 +408,7 @@ export type AccountUpdateInput = {
   sessionEnc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tgUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tgUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   lastConnectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -411,6 +426,7 @@ export type AccountUncheckedUpdateInput = {
   sessionEnc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tgUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tgUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   lastConnectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -428,6 +444,7 @@ export type AccountCreateManyInput = {
   sessionEnc?: string | null
   tgUserId?: string | null
   tgUsername?: string | null
+  avatarKey?: string | null
   status?: $Enums.AccountStatus
   lastConnectedAt?: Date | string | null
   createdAt?: Date | string
@@ -443,6 +460,7 @@ export type AccountUpdateManyMutationInput = {
   sessionEnc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tgUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tgUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   lastConnectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -458,6 +476,7 @@ export type AccountUncheckedUpdateManyInput = {
   sessionEnc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tgUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tgUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   lastConnectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -473,6 +492,7 @@ export type AccountCountOrderByAggregateInput = {
   sessionEnc?: Prisma.SortOrder
   tgUserId?: Prisma.SortOrder
   tgUsername?: Prisma.SortOrder
+  avatarKey?: Prisma.SortOrder
   status?: Prisma.SortOrder
   lastConnectedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -492,6 +512,7 @@ export type AccountMaxOrderByAggregateInput = {
   sessionEnc?: Prisma.SortOrder
   tgUserId?: Prisma.SortOrder
   tgUsername?: Prisma.SortOrder
+  avatarKey?: Prisma.SortOrder
   status?: Prisma.SortOrder
   lastConnectedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -507,6 +528,7 @@ export type AccountMinOrderByAggregateInput = {
   sessionEnc?: Prisma.SortOrder
   tgUserId?: Prisma.SortOrder
   tgUsername?: Prisma.SortOrder
+  avatarKey?: Prisma.SortOrder
   status?: Prisma.SortOrder
   lastConnectedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -587,6 +609,7 @@ export type AccountCreateWithoutSourcesInput = {
   sessionEnc?: string | null
   tgUserId?: string | null
   tgUsername?: string | null
+  avatarKey?: string | null
   status?: $Enums.AccountStatus
   lastConnectedAt?: Date | string | null
   createdAt?: Date | string
@@ -603,6 +626,7 @@ export type AccountUncheckedCreateWithoutSourcesInput = {
   sessionEnc?: string | null
   tgUserId?: string | null
   tgUsername?: string | null
+  avatarKey?: string | null
   status?: $Enums.AccountStatus
   lastConnectedAt?: Date | string | null
   createdAt?: Date | string
@@ -635,6 +659,7 @@ export type AccountUpdateWithoutSourcesInput = {
   sessionEnc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tgUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tgUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   lastConnectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -651,6 +676,7 @@ export type AccountUncheckedUpdateWithoutSourcesInput = {
   sessionEnc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tgUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tgUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   lastConnectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -667,6 +693,7 @@ export type AccountCreateWithoutMessagesInput = {
   sessionEnc?: string | null
   tgUserId?: string | null
   tgUsername?: string | null
+  avatarKey?: string | null
   status?: $Enums.AccountStatus
   lastConnectedAt?: Date | string | null
   createdAt?: Date | string
@@ -683,6 +710,7 @@ export type AccountUncheckedCreateWithoutMessagesInput = {
   sessionEnc?: string | null
   tgUserId?: string | null
   tgUsername?: string | null
+  avatarKey?: string | null
   status?: $Enums.AccountStatus
   lastConnectedAt?: Date | string | null
   createdAt?: Date | string
@@ -715,6 +743,7 @@ export type AccountUpdateWithoutMessagesInput = {
   sessionEnc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tgUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tgUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   lastConnectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -731,6 +760,7 @@ export type AccountUncheckedUpdateWithoutMessagesInput = {
   sessionEnc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tgUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tgUsername?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   lastConnectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -787,6 +817,7 @@ export type AccountSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   sessionEnc?: boolean
   tgUserId?: boolean
   tgUsername?: boolean
+  avatarKey?: boolean
   status?: boolean
   lastConnectedAt?: boolean
   createdAt?: boolean
@@ -805,6 +836,7 @@ export type AccountSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   sessionEnc?: boolean
   tgUserId?: boolean
   tgUsername?: boolean
+  avatarKey?: boolean
   status?: boolean
   lastConnectedAt?: boolean
   createdAt?: boolean
@@ -820,6 +852,7 @@ export type AccountSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   sessionEnc?: boolean
   tgUserId?: boolean
   tgUsername?: boolean
+  avatarKey?: boolean
   status?: boolean
   lastConnectedAt?: boolean
   createdAt?: boolean
@@ -835,13 +868,14 @@ export type AccountSelectScalar = {
   sessionEnc?: boolean
   tgUserId?: boolean
   tgUsername?: boolean
+  avatarKey?: boolean
   status?: boolean
   lastConnectedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type AccountOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "label" | "phone" | "apiId" | "apiHashEnc" | "sessionEnc" | "tgUserId" | "tgUsername" | "status" | "lastConnectedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["account"]>
+export type AccountOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "label" | "phone" | "apiId" | "apiHashEnc" | "sessionEnc" | "tgUserId" | "tgUsername" | "avatarKey" | "status" | "lastConnectedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["account"]>
 export type AccountInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sources?: boolean | Prisma.Account$sourcesArgs<ExtArgs>
   messages?: boolean | Prisma.Account$messagesArgs<ExtArgs>
@@ -865,6 +899,7 @@ export type $AccountPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     sessionEnc: string | null
     tgUserId: string | null
     tgUsername: string | null
+    avatarKey: string | null
     status: $Enums.AccountStatus
     lastConnectedAt: Date | null
     createdAt: Date
@@ -1302,6 +1337,7 @@ export interface AccountFieldRefs {
   readonly sessionEnc: Prisma.FieldRef<"Account", 'String'>
   readonly tgUserId: Prisma.FieldRef<"Account", 'String'>
   readonly tgUsername: Prisma.FieldRef<"Account", 'String'>
+  readonly avatarKey: Prisma.FieldRef<"Account", 'String'>
   readonly status: Prisma.FieldRef<"Account", 'AccountStatus'>
   readonly lastConnectedAt: Prisma.FieldRef<"Account", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Account", 'DateTime'>

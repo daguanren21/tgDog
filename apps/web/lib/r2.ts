@@ -1,7 +1,7 @@
 import { prisma } from "@tgdog/db";
 import { tryDecrypt, type R2Config } from "@tgdog/core";
 
-/** 从 DB Setting 行（优先）或环境变量读取并解密 R2 配置 */
+/** 从 DB Setting 行（优先）或环境变量读取并解密 R2 配置（web 侧，用于头像代理读取） */
 export async function loadR2Config(): Promise<R2Config | null> {
   const s = await prisma.setting.findUnique({ where: { id: "singleton" } });
 
@@ -11,10 +11,10 @@ export async function loadR2Config(): Promise<R2Config | null> {
   const secretAccessKey =
     tryDecrypt(s?.r2SecretKeyEnc) ?? process.env.R2_SECRET_ACCESS_KEY;
   const bucket = s?.r2Bucket ?? process.env.R2_BUCKET;
-  const publicUrl = s?.r2PublicUrl ?? process.env.R2_PUBLIC_URL ?? "";
   const endpoint = s?.r2Endpoint ?? process.env.R2_ENDPOINT;
+  // 头像走代理读取，不依赖公开域名；publicUrl 缺省占位即可
+  const publicUrl = s?.r2PublicUrl ?? process.env.R2_PUBLIC_URL ?? "";
 
-  // 私有桶场景：头像/媒体经 web 代理读取，publicUrl 非必填
   if (!accountId || !accessKeyId || !secretAccessKey || !bucket) {
     return null;
   }

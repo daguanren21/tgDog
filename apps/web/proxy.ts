@@ -2,7 +2,9 @@ import { NextResponse, type NextRequest } from "next/server";
 import { SESSION_COOKIE, verifyTokenEdge } from "@/lib/auth-edge";
 
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon.ico|login|api/auth).*)"],
+  matcher: [
+    "/((?!_next/static|_next/image|favicon.ico|login|api/auth|api/avatar).*)",
+  ],
 };
 
 export async function proxy(req: NextRequest) {

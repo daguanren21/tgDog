@@ -1,5 +1,6 @@
 import { prisma } from "@tgdog/db";
 import { Badge } from "@/components/ui/input";
+import { Avatar } from "@/components/avatar";
 import { TgLogin } from "./tg-login";
 
 export const dynamic = "force-dynamic";
@@ -26,6 +27,7 @@ export default async function AccountsPage() {
               key={a.id}
               className="flex items-center gap-2 rounded-md border border-border bg-card px-3 py-2 text-sm"
             >
+              <Avatar avatarKey={a.avatarKey} name={a.label} />
               <span className="flex-1 truncate">{a.label}</span>
               {a.tgUsername && (
                 <span className="text-xs text-muted-foreground">
@@ -40,7 +42,10 @@ export default async function AccountsPage() {
 
       <div>
         <h2 className="mb-2 text-sm font-semibold">添加账号</h2>
-        <TgLogin />
+        <TgLogin
+          defaultApiId={process.env.TELEGRAM_API_ID ?? ""}
+          defaultApiHash={process.env.TELEGRAM_API_HASH ?? ""}
+        />
       </div>
     </div>
   );

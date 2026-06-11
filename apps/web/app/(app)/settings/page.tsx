@@ -11,15 +11,16 @@ export default async function SettingsPage() {
       <h1 className="text-lg font-semibold">设置</h1>
       <SettingsForm
         initial={{
-          r2AccountId: s?.r2AccountId ?? "",
-          r2Bucket: s?.r2Bucket ?? "",
-          r2Endpoint: s?.r2Endpoint ?? "",
-          r2PublicUrl: s?.r2PublicUrl ?? "",
-          hasR2AccessKey: !!s?.r2AccessKeyEnc,
-          hasR2SecretKey: !!s?.r2SecretKeyEnc,
-          aiBaseUrl: s?.aiBaseUrl ?? "",
-          aiModel: s?.aiModel ?? "gpt-4o-mini",
-          hasAiApiKey: !!s?.aiApiKeyEnc,
+          r2AccountId: s?.r2AccountId ?? process.env.R2_ACCOUNT_ID ?? "",
+          r2Bucket: s?.r2Bucket ?? process.env.R2_BUCKET ?? "",
+          r2Endpoint: s?.r2Endpoint ?? process.env.R2_ENDPOINT ?? "",
+          r2PublicUrl: s?.r2PublicUrl ?? process.env.R2_PUBLIC_URL ?? "",
+          hasR2AccessKey: !!s?.r2AccessKeyEnc || !!process.env.R2_ACCESS_KEY_ID,
+          hasR2SecretKey:
+            !!s?.r2SecretKeyEnc || !!process.env.R2_SECRET_ACCESS_KEY,
+          aiBaseUrl: s?.aiBaseUrl ?? process.env.OPENAI_BASE_URL ?? "",
+          aiModel: s?.aiModel ?? process.env.OPENAI_MODEL ?? "gpt-4o-mini",
+          hasAiApiKey: !!s?.aiApiKeyEnc || !!process.env.OPENAI_API_KEY,
         }}
       />
     </div>

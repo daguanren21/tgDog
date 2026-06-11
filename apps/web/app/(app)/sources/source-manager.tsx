@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/input";
+import { Avatar } from "@/components/avatar";
 import {
   addSource,
   deleteSource,
@@ -20,12 +21,14 @@ interface ExistingSource {
   title: string;
   type: string;
   enabled: boolean;
+  avatarKey?: string | null;
 }
 interface Dialog {
   tgChatId: string;
   title: string;
   username?: string;
   type: string;
+  avatarKey?: string;
 }
 
 export function SourceManager({
@@ -97,6 +100,7 @@ export function SourceManager({
                   key={d.tgChatId}
                   className="flex items-center gap-2 rounded-md border border-border bg-card px-3 py-2 text-sm"
                 >
+                  <Avatar avatarKey={d.avatarKey} name={d.title} />
                   <span className="min-w-0 flex-1 truncate">{d.title}</span>
                   <Badge>{d.type}</Badge>
                   <button
@@ -109,6 +113,7 @@ export function SourceManager({
                           title: d.title,
                           username: d.username,
                           type: d.type as never,
+                          avatarKey: d.avatarKey,
                         }).then(() => {})
                       )
                     }
@@ -134,6 +139,7 @@ export function SourceManager({
               key={s.id}
               className="flex items-center gap-2 rounded-md border border-border bg-card px-3 py-2 text-sm"
             >
+              <Avatar avatarKey={s.avatarKey} name={s.title} />
               <span className="min-w-0 flex-1 truncate">{s.title}</span>
               <Badge>{s.type}</Badge>
               <button

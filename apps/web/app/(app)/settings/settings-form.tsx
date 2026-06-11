@@ -69,7 +69,12 @@ export function SettingsForm({ initial }: Props) {
   return (
     <div className="space-y-6">
       <section className="space-y-3 rounded-xl border border-border bg-card p-4">
-        <h2 className="text-sm font-semibold">Cloudflare R2（媒体存储）</h2>
+        <div className="space-y-0.5">
+          <h2 className="text-sm font-semibold">Cloudflare R2（媒体存储）</h2>
+          <p className="text-xs text-muted-foreground">
+            字段已带出 .env 现值；留空保存即沿用 .env 默认。
+          </p>
+        </div>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           {field("Account ID", "r2AccountId")}
           {field("Bucket", "r2Bucket")}
@@ -91,7 +96,12 @@ export function SettingsForm({ initial }: Props) {
       </section>
 
       <section className="space-y-3 rounded-xl border border-border bg-card p-4">
-        <h2 className="text-sm font-semibold">AI（OpenAI 兼容接口）</h2>
+        <div className="space-y-0.5">
+          <h2 className="text-sm font-semibold">AI（OpenAI 兼容接口）</h2>
+          <p className="text-xs text-muted-foreground">
+            字段已带出 .env 现值；留空保存即沿用 .env 默认。
+          </p>
+        </div>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           {field("Base URL", "aiBaseUrl", "https://api.openai.com/v1")}
           {field("Model", "aiModel", "gpt-4o-mini")}

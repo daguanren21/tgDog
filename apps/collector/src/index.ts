@@ -1,3 +1,4 @@
+import "./load-env.js"; // 必须最先执行：在 db 等模块加载前注入根目录 .env
 import { ClientManager } from "./client-manager.js";
 import { startLoginServer } from "./login-service.js";
 import { env } from "./env.js";

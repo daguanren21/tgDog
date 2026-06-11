@@ -13,6 +13,7 @@ export async function fetchDialogs(accountId: string) {
     title: string;
     username?: string;
     type: string;
+    avatarKey?: string;
   }[];
 }
 
@@ -23,6 +24,7 @@ export async function addSource(input: {
   title: string;
   username?: string;
   type: SourceType;
+  avatarKey?: string;
 }) {
   await prisma.source.upsert({
     where: {
@@ -31,7 +33,12 @@ export async function addSource(input: {
         tgChatId: input.tgChatId,
       },
     },
-    update: { enabled: true, title: input.title, username: input.username },
+    update: {
+      enabled: true,
+      title: input.title,
+      username: input.username,
+      ...(input.avatarKey ? { avatarKey: input.avatarKey } : {}),
+    },
     create: {
       accountId: input.accountId,
       tgChatId: input.tgChatId,
@@ -39,6 +46,7 @@ export async function addSource(input: {
       username: input.username,
       type: input.type,
       enabled: true,
+      avatarKey: input.avatarKey ?? null,
     },
   });
   revalidatePath("/sources");

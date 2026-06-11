@@ -1,5 +1,11 @@
 import type { NextConfig } from "next";
 import path from "node:path";
+import { config as loadEnv } from "dotenv";
+
+// monorepo：web 由 `pnpm --filter` 在 apps/web 下启动，而 .env 在仓库根目录，
+// Next 原生只在 apps/web 找 .env 会读不到，因此显式加载根目录的 .env。
+// （Docker 部署走 env_file 注入，不依赖此处。）
+loadEnv({ path: path.join(import.meta.dirname, "../../.env") });
 
 const nextConfig: NextConfig = {
   // 容器部署用 standalone 产物

@@ -23,6 +23,7 @@ export default async function SourcesPage() {
           title: s.title,
           type: s.type,
           enabled: s.enabled,
+          avatarKey: s.avatarKey,
         }))}
       />
     </div>

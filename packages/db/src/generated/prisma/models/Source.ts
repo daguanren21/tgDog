@@ -30,6 +30,7 @@ export type SourceMinAggregateOutputType = {
   tgChatId: string | null
   title: string | null
   username: string | null
+  avatarKey: string | null
   type: $Enums.SourceType | null
   enabled: boolean | null
   addedAt: Date | null
@@ -42,6 +43,7 @@ export type SourceMaxAggregateOutputType = {
   tgChatId: string | null
   title: string | null
   username: string | null
+  avatarKey: string | null
   type: $Enums.SourceType | null
   enabled: boolean | null
   addedAt: Date | null
@@ -54,6 +56,7 @@ export type SourceCountAggregateOutputType = {
   tgChatId: number
   title: number
   username: number
+  avatarKey: number
   type: number
   enabled: number
   addedAt: number
@@ -68,6 +71,7 @@ export type SourceMinAggregateInputType = {
   tgChatId?: true
   title?: true
   username?: true
+  avatarKey?: true
   type?: true
   enabled?: true
   addedAt?: true
@@ -80,6 +84,7 @@ export type SourceMaxAggregateInputType = {
   tgChatId?: true
   title?: true
   username?: true
+  avatarKey?: true
   type?: true
   enabled?: true
   addedAt?: true
@@ -92,6 +97,7 @@ export type SourceCountAggregateInputType = {
   tgChatId?: true
   title?: true
   username?: true
+  avatarKey?: true
   type?: true
   enabled?: true
   addedAt?: true
@@ -177,6 +183,7 @@ export type SourceGroupByOutputType = {
   tgChatId: string
   title: string
   username: string | null
+  avatarKey: string | null
   type: $Enums.SourceType
   enabled: boolean
   addedAt: Date
@@ -210,6 +217,7 @@ export type SourceWhereInput = {
   tgChatId?: Prisma.StringFilter<"Source"> | string
   title?: Prisma.StringFilter<"Source"> | string
   username?: Prisma.StringNullableFilter<"Source"> | string | null
+  avatarKey?: Prisma.StringNullableFilter<"Source"> | string | null
   type?: Prisma.EnumSourceTypeFilter<"Source"> | $Enums.SourceType
   enabled?: Prisma.BoolFilter<"Source"> | boolean
   addedAt?: Prisma.DateTimeFilter<"Source"> | Date | string
@@ -225,6 +233,7 @@ export type SourceOrderByWithRelationInput = {
   tgChatId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   username?: Prisma.SortOrderInput | Prisma.SortOrder
+  avatarKey?: Prisma.SortOrderInput | Prisma.SortOrder
   type?: Prisma.SortOrder
   enabled?: Prisma.SortOrder
   addedAt?: Prisma.SortOrder
@@ -244,6 +253,7 @@ export type SourceWhereUniqueInput = Prisma.AtLeast<{
   tgChatId?: Prisma.StringFilter<"Source"> | string
   title?: Prisma.StringFilter<"Source"> | string
   username?: Prisma.StringNullableFilter<"Source"> | string | null
+  avatarKey?: Prisma.StringNullableFilter<"Source"> | string | null
   type?: Prisma.EnumSourceTypeFilter<"Source"> | $Enums.SourceType
   enabled?: Prisma.BoolFilter<"Source"> | boolean
   addedAt?: Prisma.DateTimeFilter<"Source"> | Date | string
@@ -259,6 +269,7 @@ export type SourceOrderByWithAggregationInput = {
   tgChatId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   username?: Prisma.SortOrderInput | Prisma.SortOrder
+  avatarKey?: Prisma.SortOrderInput | Prisma.SortOrder
   type?: Prisma.SortOrder
   enabled?: Prisma.SortOrder
   addedAt?: Prisma.SortOrder
@@ -277,6 +288,7 @@ export type SourceScalarWhereWithAggregatesInput = {
   tgChatId?: Prisma.StringWithAggregatesFilter<"Source"> | string
   title?: Prisma.StringWithAggregatesFilter<"Source"> | string
   username?: Prisma.StringNullableWithAggregatesFilter<"Source"> | string | null
+  avatarKey?: Prisma.StringNullableWithAggregatesFilter<"Source"> | string | null
   type?: Prisma.EnumSourceTypeWithAggregatesFilter<"Source"> | $Enums.SourceType
   enabled?: Prisma.BoolWithAggregatesFilter<"Source"> | boolean
   addedAt?: Prisma.DateTimeWithAggregatesFilter<"Source"> | Date | string
@@ -288,6 +300,7 @@ export type SourceCreateInput = {
   tgChatId: string
   title: string
   username?: string | null
+  avatarKey?: string | null
   type: $Enums.SourceType
   enabled?: boolean
   addedAt?: Date | string
@@ -303,6 +316,7 @@ export type SourceUncheckedCreateInput = {
   tgChatId: string
   title: string
   username?: string | null
+  avatarKey?: string | null
   type: $Enums.SourceType
   enabled?: boolean
   addedAt?: Date | string
@@ -316,6 +330,7 @@ export type SourceUpdateInput = {
   tgChatId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumSourceTypeFieldUpdateOperationsInput | $Enums.SourceType
   enabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -331,6 +346,7 @@ export type SourceUncheckedUpdateInput = {
   tgChatId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumSourceTypeFieldUpdateOperationsInput | $Enums.SourceType
   enabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -345,6 +361,7 @@ export type SourceCreateManyInput = {
   tgChatId: string
   title: string
   username?: string | null
+  avatarKey?: string | null
   type: $Enums.SourceType
   enabled?: boolean
   addedAt?: Date | string
@@ -356,6 +373,7 @@ export type SourceUpdateManyMutationInput = {
   tgChatId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumSourceTypeFieldUpdateOperationsInput | $Enums.SourceType
   enabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -368,6 +386,7 @@ export type SourceUncheckedUpdateManyInput = {
   tgChatId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumSourceTypeFieldUpdateOperationsInput | $Enums.SourceType
   enabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -395,6 +414,7 @@ export type SourceCountOrderByAggregateInput = {
   tgChatId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   username?: Prisma.SortOrder
+  avatarKey?: Prisma.SortOrder
   type?: Prisma.SortOrder
   enabled?: Prisma.SortOrder
   addedAt?: Prisma.SortOrder
@@ -407,6 +427,7 @@ export type SourceMaxOrderByAggregateInput = {
   tgChatId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   username?: Prisma.SortOrder
+  avatarKey?: Prisma.SortOrder
   type?: Prisma.SortOrder
   enabled?: Prisma.SortOrder
   addedAt?: Prisma.SortOrder
@@ -419,6 +440,7 @@ export type SourceMinOrderByAggregateInput = {
   tgChatId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   username?: Prisma.SortOrder
+  avatarKey?: Prisma.SortOrder
   type?: Prisma.SortOrder
   enabled?: Prisma.SortOrder
   addedAt?: Prisma.SortOrder
@@ -537,6 +559,7 @@ export type SourceCreateWithoutAccountInput = {
   tgChatId: string
   title: string
   username?: string | null
+  avatarKey?: string | null
   type: $Enums.SourceType
   enabled?: boolean
   addedAt?: Date | string
@@ -550,6 +573,7 @@ export type SourceUncheckedCreateWithoutAccountInput = {
   tgChatId: string
   title: string
   username?: string | null
+  avatarKey?: string | null
   type: $Enums.SourceType
   enabled?: boolean
   addedAt?: Date | string
@@ -593,6 +617,7 @@ export type SourceScalarWhereInput = {
   tgChatId?: Prisma.StringFilter<"Source"> | string
   title?: Prisma.StringFilter<"Source"> | string
   username?: Prisma.StringNullableFilter<"Source"> | string | null
+  avatarKey?: Prisma.StringNullableFilter<"Source"> | string | null
   type?: Prisma.EnumSourceTypeFilter<"Source"> | $Enums.SourceType
   enabled?: Prisma.BoolFilter<"Source"> | boolean
   addedAt?: Prisma.DateTimeFilter<"Source"> | Date | string
@@ -604,6 +629,7 @@ export type SourceCreateWithoutRulesInput = {
   tgChatId: string
   title: string
   username?: string | null
+  avatarKey?: string | null
   type: $Enums.SourceType
   enabled?: boolean
   addedAt?: Date | string
@@ -618,6 +644,7 @@ export type SourceUncheckedCreateWithoutRulesInput = {
   tgChatId: string
   title: string
   username?: string | null
+  avatarKey?: string | null
   type: $Enums.SourceType
   enabled?: boolean
   addedAt?: Date | string
@@ -651,6 +678,7 @@ export type SourceCreateWithoutMessagesInput = {
   tgChatId: string
   title: string
   username?: string | null
+  avatarKey?: string | null
   type: $Enums.SourceType
   enabled?: boolean
   addedAt?: Date | string
@@ -665,6 +693,7 @@ export type SourceUncheckedCreateWithoutMessagesInput = {
   tgChatId: string
   title: string
   username?: string | null
+  avatarKey?: string | null
   type: $Enums.SourceType
   enabled?: boolean
   addedAt?: Date | string
@@ -693,6 +722,7 @@ export type SourceUpdateWithoutMessagesInput = {
   tgChatId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumSourceTypeFieldUpdateOperationsInput | $Enums.SourceType
   enabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -707,6 +737,7 @@ export type SourceUncheckedUpdateWithoutMessagesInput = {
   tgChatId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumSourceTypeFieldUpdateOperationsInput | $Enums.SourceType
   enabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -719,6 +750,7 @@ export type SourceCreateManyAccountInput = {
   tgChatId: string
   title: string
   username?: string | null
+  avatarKey?: string | null
   type: $Enums.SourceType
   enabled?: boolean
   addedAt?: Date | string
@@ -730,6 +762,7 @@ export type SourceUpdateWithoutAccountInput = {
   tgChatId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumSourceTypeFieldUpdateOperationsInput | $Enums.SourceType
   enabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -743,6 +776,7 @@ export type SourceUncheckedUpdateWithoutAccountInput = {
   tgChatId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumSourceTypeFieldUpdateOperationsInput | $Enums.SourceType
   enabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -756,6 +790,7 @@ export type SourceUncheckedUpdateManyWithoutAccountInput = {
   tgChatId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumSourceTypeFieldUpdateOperationsInput | $Enums.SourceType
   enabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -767,6 +802,7 @@ export type SourceUpdateWithoutRulesInput = {
   tgChatId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumSourceTypeFieldUpdateOperationsInput | $Enums.SourceType
   enabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -781,6 +817,7 @@ export type SourceUncheckedUpdateWithoutRulesInput = {
   tgChatId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumSourceTypeFieldUpdateOperationsInput | $Enums.SourceType
   enabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -794,6 +831,7 @@ export type SourceUncheckedUpdateManyWithoutRulesInput = {
   tgChatId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumSourceTypeFieldUpdateOperationsInput | $Enums.SourceType
   enabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -846,6 +884,7 @@ export type SourceSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   tgChatId?: boolean
   title?: boolean
   username?: boolean
+  avatarKey?: boolean
   type?: boolean
   enabled?: boolean
   addedAt?: boolean
@@ -862,6 +901,7 @@ export type SourceSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   tgChatId?: boolean
   title?: boolean
   username?: boolean
+  avatarKey?: boolean
   type?: boolean
   enabled?: boolean
   addedAt?: boolean
@@ -875,6 +915,7 @@ export type SourceSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   tgChatId?: boolean
   title?: boolean
   username?: boolean
+  avatarKey?: boolean
   type?: boolean
   enabled?: boolean
   addedAt?: boolean
@@ -888,13 +929,14 @@ export type SourceSelectScalar = {
   tgChatId?: boolean
   title?: boolean
   username?: boolean
+  avatarKey?: boolean
   type?: boolean
   enabled?: boolean
   addedAt?: boolean
   updatedAt?: boolean
 }
 
-export type SourceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "accountId" | "tgChatId" | "title" | "username" | "type" | "enabled" | "addedAt" | "updatedAt", ExtArgs["result"]["source"]>
+export type SourceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "accountId" | "tgChatId" | "title" | "username" | "avatarKey" | "type" | "enabled" | "addedAt" | "updatedAt", ExtArgs["result"]["source"]>
 export type SourceInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   account?: boolean | Prisma.AccountDefaultArgs<ExtArgs>
   rules?: boolean | Prisma.Source$rulesArgs<ExtArgs>
@@ -921,6 +963,7 @@ export type $SourcePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     tgChatId: string
     title: string
     username: string | null
+    avatarKey: string | null
     type: $Enums.SourceType
     enabled: boolean
     addedAt: Date
@@ -1356,6 +1399,7 @@ export interface SourceFieldRefs {
   readonly tgChatId: Prisma.FieldRef<"Source", 'String'>
   readonly title: Prisma.FieldRef<"Source", 'String'>
   readonly username: Prisma.FieldRef<"Source", 'String'>
+  readonly avatarKey: Prisma.FieldRef<"Source", 'String'>
   readonly type: Prisma.FieldRef<"Source", 'SourceType'>
   readonly enabled: Prisma.FieldRef<"Source", 'Boolean'>
   readonly addedAt: Prisma.FieldRef<"Source", 'DateTime'>

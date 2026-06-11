@@ -18,10 +18,17 @@ async function post(body: unknown) {
   return data;
 }
 
-export function TgLogin() {
+export function TgLogin({
+  defaultApiId = "",
+  defaultApiHash = "",
+}: {
+  defaultApiId?: string;
+  defaultApiHash?: string;
+}) {
   const [mode, setMode] = useState<Mode>("qr");
-  const [apiId, setApiId] = useState("");
-  const [apiHash, setApiHash] = useState("");
+  const [apiId, setApiId] = useState(defaultApiId);
+  const [apiHash, setApiHash] = useState(defaultApiHash);
+  const [showHash, setShowHash] = useState(false);
   const [phone, setPhone] = useState("");
   const [code, setCode] = useState("");
   const [password, setPassword] = useState("");
@@ -159,7 +166,24 @@ export function TgLogin() {
         </label>
         <label className="space-y-1">
           <span className="text-xs text-muted-foreground">API Hash</span>
-          <Input value={apiHash} onChange={(e) => setApiHash(e.target.value)} />
+          <div className="relative">
+            <Input
+              type={showHash ? "text" : "password"}
+              value={apiHash}
+              onChange={(e) => setApiHash(e.target.value)}
+              placeholder="my.telegram.org 获取"
+              className="pr-9"
+            />
+            <button
+              type="button"
+              onClick={() => setShowHash((v) => !v)}
+              className="absolute inset-y-0 right-0 flex w-9 items-center justify-center text-muted-foreground hover:text-foreground"
+              aria-label={showHash ? "隐藏 API Hash" : "显示 API Hash"}
+              title={showHash ? "隐藏" : "显示"}
+            >
+              {showHash ? <EyeOffIcon /> : <EyeIcon />}
+            </button>
+          </div>
         </label>
       </div>
 
@@ -180,17 +204,19 @@ export function TgLogin() {
           )}
         </div>
       ) : (
-        <div className="space-y-3">
+        <div className="space-y-4">
           <label className="space-y-1">
             <span className="text-xs text-muted-foreground">手机号（含国家码，如 +86…）</span>
             <Input value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="+8613800138000" />
           </label>
           {!needsCode ? (
-            <Button onClick={startPhone} disabled={busy || !apiId || !apiHash || !phone}>
-              {busy ? "发送中…" : "发送验证码"}
-            </Button>
+            <div className="pt-1">
+              <Button onClick={startPhone} disabled={busy || !apiId || !apiHash || !phone}>
+                {busy ? "发送中…" : "发送验证码"}
+              </Button>
+            </div>
           ) : (
-            <div className="flex gap-2">
+            <div className="flex gap-2 pt-1">
               <Input value={code} onChange={(e) => setCode(e.target.value)} placeholder="验证码" />
               <Button onClick={submitCode} disabled={busy || !code}>
                 提交
@@ -222,5 +248,44 @@ export function TgLogin() {
       )}
       {error && <p className="text-sm text-danger">{error}</p>}
     </div>
+  );
+}
+
+function EyeIcon() {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z" />
+      <circle cx="12" cy="12" r="3" />
+    </svg>
+  );
+}
+
+function EyeOffIcon() {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c6.5 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68" />
+      <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3.5 7 10 7a9.74 9.74 0 0 0 5.39-1.61" />
+      <line x1="2" x2="22" y1="2" y2="22" />
+    </svg>
   );
 }

@@ -1,4 +1,5 @@
 import {
+  GetObjectCommand,
   PutObjectCommand,
   S3Client,
 } from "@aws-sdk/client-s3";
@@ -61,4 +62,33 @@ export function buildMediaKey(
   const day = isoDate.slice(0, 10);
   const safeName = fileName.replace(/[^a-zA-Z0-9._-]/g, "_");
   return `messages/${day}/${messageId}/${safeName}`;
+}
+
+/**
+ * 读取 R2 对象（私有桶代理读取用）。不存在/出错返回 null。
+ */
+export async function getObject(
+  cfg: R2Config,
+  key: string,
+): Promise<{ body: Buffer; contentType?: string } | null> {
+  const client = buildClient(cfg);
+  try {
+    const res = await client.send(
+      new GetObjectCommand({ Bucket: cfg.bucket, Key: key }),
+    );
+    if (!res.Body) return null;
+    const bytes = await res.Body.transformToByteArray();
+    return { body: Buffer.from(bytes), contentType: res.ContentType };
+  } catch {
+    return null;
+  }
+}
+
+/** 生成头像存储 key：avatars/<kind>/<id>.jpg */
+export function buildAvatarKey(
+  kind: "account" | "source",
+  id: string,
+): string {
+  const safeId = id.replace(/[^a-zA-Z0-9._-]/g, "_");
+  return `avatars/${kind}/${safeId}.jpg`;
 }

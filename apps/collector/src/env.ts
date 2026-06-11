@@ -1,5 +1,4 @@
-import "dotenv/config";
-
+// .env 由入口的 ./load-env.ts 统一加载（必须在 @tgdog/db 之前），此处不再重复加载。
 function required(name: string): string {
   const v = process.env[name];
   if (!v) throw new Error(`缺少环境变量 ${name}`);
